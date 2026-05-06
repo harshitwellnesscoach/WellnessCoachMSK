@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Secrets — NEVER commit these
+backend/.env
+frontend/.env.local
+.env
+.env.*
+
+# Frontend build
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/.vite/
+
+# Large model file (download separately — ~3MB)
+frontend/public/models/
+
+# macOS
+.DS_Store
