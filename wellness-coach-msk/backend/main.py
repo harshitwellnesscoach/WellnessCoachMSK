@@ -18,7 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://wellness-coach-msk.vercel.app",  # update with your real domain
+        "https://wellness-coach-msk.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
