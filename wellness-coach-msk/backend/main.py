@@ -25,18 +25,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Routers (uncomment as you build each phase) ---
-# from routers import auth, intake, dashboard, pain, program, session, odi, checkin, progression, rescreen
-# app.include_router(auth.router)
-# app.include_router(intake.router)
-# app.include_router(dashboard.router)
-# app.include_router(pain.router)
-# app.include_router(program.router)
-# app.include_router(session.router)
-# app.include_router(odi.router)
-# app.include_router(checkin.router)
-# app.include_router(progression.router)
-# app.include_router(rescreen.router)
+from routers import auth, intake
+
+app.include_router(auth.router)
+app.include_router(intake.router)
 
 
 @app.get("/health")

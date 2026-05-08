@@ -2,9 +2,11 @@ import os
 from typing import Annotated
 
 from dotenv import load_dotenv
-from fastapi import Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
+
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 load_dotenv()
 
