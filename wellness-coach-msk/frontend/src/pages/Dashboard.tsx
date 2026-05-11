@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import Logo from '../components/Logo'
 
 export default function Dashboard() {
   const [email, setEmail] = useState<string | null>(null)
@@ -13,14 +14,36 @@ export default function Dashboard() {
     window.location.href = '/signin'
   }
 
+  const firstName = email?.split('@')[0] ?? 'there'
+
   return (
-    <div style={{ maxWidth: 600, margin: '40px auto', padding: 24 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>Dashboard</h1>
-        <button onClick={handleSignOut}>Sign out</button>
+    <div style={{ minHeight: '100svh', background: '#fff' }}>
+      <nav className="navbar">
+        <Logo />
+        <button className="btn btn-outline" onClick={handleSignOut}>
+          Sign out
+        </button>
+      </nav>
+
+      <div className="dashboard-body">
+        <div className="welcome-card">
+          <p className="section-label" >MSK Programme</p>
+          <h1 style={{ marginBottom: 8 }}>Welcome, {firstName}</h1>
+          <p>Your personalised back pain programme is being built. Check back soon.</p>
+        </div>
+
+        <div style={{
+          background: '#fff',
+          border: '1px solid var(--border)',
+          borderRadius: 16,
+          padding: '24px 28px',
+        }}>
+          <p className="section-label" color={"black"}>Coming soon — Phase 4</p>
+          <p style={{ fontSize: 15, color:  "black"}}>
+            Your exercise programme, pain tracking, session runner, and weekly check-ins will appear here.
+          </p>
+        </div>
       </div>
-      <p>Logged in as: <strong>{email}</strong></p>
-      <p style={{ color: '#888' }}>— Phase 4: stats and program will appear here —</p>
     </div>
   )
 }

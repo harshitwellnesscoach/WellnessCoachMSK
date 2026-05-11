@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import Logo from '../components/Logo'
 
 export default function SignIn() {
   const navigate = useNavigate()
@@ -13,41 +14,58 @@ export default function SignIn() {
     e.preventDefault()
     setLoading(true)
     setError(null)
-
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-    } else {
-      navigate('/dashboard')
-    }
+    if (error) { setError(error.message); setLoading(false) }
+    else navigate('/dashboard')
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: '100px auto', padding: 24 }}>
-      <h1>Sign in</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        {error && <p style={{ color: 'red', margin: 0 }}>{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Signing in...' : 'Sign in'}
-        </button>
-      </form>
-      <p>No account? <Link to="/signup">Create one</Link></p>
+    <div className="page-auth">
+      <div className="card">
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32 }}>
+          <Logo />
+        </div>
+
+        <h1 style={{ textAlign: 'center', marginBottom: 8, color: 'black' }}>Welcome back</h1>
+        <p style={{ textAlign: 'center', marginBottom: 28, color: 'black' }}>
+          Sign in to your MSK programme
+        </p>
+
+        <form onSubmit={handleSubmit} className="form-stack">
+          <div className="form-field">
+            <label className="form-label">Email address</label>
+            <input
+              className="form-input"
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+            />
+          </div>
+          <div className="form-field">
+            <label className="form-label">Password</label>
+            <input
+              className="form-input"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </div>
+          {error && <div className="alert alert-error">{error}</div>}
+          <button className="btn btn-primary" type="submit" disabled={loading}>
+            {loading ? 'Signing in…' : 'Sign in'}
+          </button>
+        </form>
+
+        <p className="auth-footer">
+          No account? <Link to="/signup">Create one</Link>
+        </p>
+      </div>
     </div>
   )
 }
