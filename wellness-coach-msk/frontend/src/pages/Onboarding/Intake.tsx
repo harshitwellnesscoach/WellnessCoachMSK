@@ -120,7 +120,7 @@ export default function Intake() {
           </div>
 
           <div className="form-field">
-            <label className="form-label">How many weeks have you had this pain? *</label>
+            <label className="form-label" color={"black"}>How many weeks have you had this pain? *</label>
             <input
               className="form-input"
               type="number" min={0}

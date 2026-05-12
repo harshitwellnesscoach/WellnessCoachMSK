@@ -25,12 +25,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from routers import auth, intake, dashboard, pain
+from routers import auth, intake, dashboard, pain, program
 
 app.include_router(auth.router)
 app.include_router(intake.router)
 app.include_router(dashboard.router)
 app.include_router(pain.router)
+app.include_router(program.router)
 
 
 @app.get("/health")

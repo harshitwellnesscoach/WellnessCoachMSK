@@ -1,0 +1,117 @@
+{
+  "exercises": [
+    {
+      "id": "pelvic_tilt",
+      "name": "Pelvic Tilt",
+      "type": "cv",
+      "description": "Gentle flattening of the lower back against the floor",
+      "default_sets": 2,
+      "default_reps": 10,
+      "rest_seconds": 30,
+      "cues": ["Breathe out as you flatten", "Keep shoulders relaxed", "Hold 2 seconds at top"],
+      "contraindications": ["acute_disc_herniation"]
+    },
+    {
+      "id": "glute_bridge",
+      "name": "Glute Bridge",
+      "type": "cv",
+      "description": "Hip hinge from lying to lift the pelvis off the floor",
+      "default_sets": 2,
+      "default_reps": 10,
+      "rest_seconds": 45,
+      "cues": ["Drive through heels", "Squeeze glutes at top", "Lower slowly in 3 seconds"],
+      "contraindications": []
+    },
+    {
+      "id": "cat_cow",
+      "name": "Cat-Cow",
+      "type": "cv",
+      "description": "Alternating spinal flexion and extension on all fours",
+      "default_sets": 2,
+      "default_reps": 10,
+      "rest_seconds": 30,
+      "cues": ["Move slowly and breathe", "Full range both directions", "Keep arms straight"],
+      "contraindications": []
+    },
+    {
+      "id": "bird_dog",
+      "name": "Bird-Dog",
+      "type": "cv",
+      "description": "Opposite arm and leg extension from quadruped",
+      "default_sets": 2,
+      "default_reps": 8,
+      "rest_seconds": 45,
+      "cues": ["Keep hips level", "Reach long not high", "Brace your core before moving"],
+      "contraindications": []
+    },
+    {
+      "id": "dead_bug",
+      "name": "Dead Bug",
+      "type": "cv",
+      "description": "Opposite arm and leg lowering from supine with core engaged",
+      "default_sets": 2,
+      "default_reps": 8,
+      "rest_seconds": 45,
+      "cues": ["Keep lower back pressed down", "Lower only as far as you can control", "Exhale on the way down"],
+      "contraindications": []
+    },
+    {
+      "id": "knee_to_chest",
+      "name": "Knee-to-Chest Stretch",
+      "type": "self_paced",
+      "description": "Single knee hugged to chest for lumbar mobility",
+      "default_sets": 1,
+      "default_reps": 5,
+      "hold_seconds": 20,
+      "rest_seconds": 15,
+      "cues": ["Hold 20 seconds each side", "Keep the other leg long", "No bouncing"],
+      "contraindications": []
+    },
+    {
+      "id": "child_pose",
+      "name": "Child's Pose",
+      "type": "self_paced",
+      "description": "Kneeling forward fold for lumbar and hip flexor stretch",
+      "default_sets": 1,
+      "default_reps": 3,
+      "hold_seconds": 30,
+      "rest_seconds": 15,
+      "cues": ["Reach arms far forward", "Let your chest drop", "Breathe into your lower back"],
+      "contraindications": []
+    },
+    {
+      "id": "piriformis_stretch",
+      "name": "Piriformis Stretch",
+      "type": "self_paced",
+      "description": "Figure-4 hip external rotation stretch",
+      "default_sets": 1,
+      "default_reps": 4,
+      "hold_seconds": 30,
+      "rest_seconds": 20,
+      "cues": ["Gentle pull only", "Keep foot flexed", "If you feel sharp nerve pain stop"],
+      "contraindications": ["acute_sciatica_severe"]
+    },
+    {
+      "id": "sciatic_nerve_floss",
+      "name": "Sciatic Nerve Floss",
+      "type": "self_paced",
+      "description": "Seated ankle pumps with neck flexion/extension for neural mobilisation",
+      "default_sets": 2,
+      "default_reps": 10,
+      "rest_seconds": 30,
+      "cues": ["Never force range", "Rhythmic and slow", "Stop if sharp referral"],
+      "contraindications": ["disc_protrusion_severe"]
+    },
+    {
+      "id": "thoracic_rotation",
+      "name": "Thoracic Rotation",
+      "type": "self_paced",
+      "description": "Side-lying thoracic rotation with top arm sweeping open",
+      "default_sets": 1,
+      "default_reps": 8,
+      "rest_seconds": 20,
+      "cues": ["Let your eyes follow your hand", "Keep hips stacked", "Exhale as you open"],
+      "contraindications": []
+    }
+  ]
+}

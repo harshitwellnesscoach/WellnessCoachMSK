@@ -6,6 +6,7 @@ import Logo from '../components/Logo'
 import ProgressBlock from '../components/dashboard/ProgressBlock'
 import PainTrendChart from '../components/dashboard/PainTrendChart'
 import PainLogInline from '../components/dashboard/PainLogInline'
+import ExerciseList from '../components/dashboard/ExerciseList'
 
 interface Stats {
   total_sessions: number
@@ -20,11 +21,30 @@ interface TrendPoint {
   avg_nprs: number
 }
 
+interface Exercise {
+  exercise_id: string
+  name: string
+  type: 'cv' | 'self_paced'
+  sets: number
+  reps: number
+  hold_seconds?: number | null
+  rest_seconds: number
+  rationale?: string | null
+}
+
+interface Program {
+  week_number: number
+  exercises: Exercise[]
+  program_notes?: string | null
+  generated_by: 'claude' | 'fallback'
+}
+
 export default function Dashboard() {
   const navigate = useNavigate()
   const [email, setEmail] = useState<string | null>(null)
   const [stats, setStats] = useState<Stats | null>(null)
   const [trend, setTrend] = useState<TrendPoint[]>([])
+  const [program, setProgram] = useState<Program | null>(null)
   const [loadingStats, setLoadingStats] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -34,10 +54,12 @@ export default function Dashboard() {
     Promise.all([
       apiCall<Stats>('/dashboard/stats'),
       apiCall<{ trend: TrendPoint[] }>('/pain/trend'),
+      apiCall<Program>('/program/current').catch(() => null),
     ])
-      .then(([s, t]) => {
+      .then(([s, t, p]) => {
         setStats(s)
         setTrend(t.trend)
+        setProgram(p)
       })
       .catch(() => setError('Could not load dashboard data. Is the backend running?'))
       .finally(() => setLoadingStats(false))
@@ -52,7 +74,6 @@ export default function Dashboard() {
 
   return (
     <div style={{ minHeight: '100svh', background: '#fff' }}>
-      {/* Navbar */}
       <nav className="navbar">
         <Logo />
         <button className="btn btn-outline" onClick={handleSignOut}>Sign out</button>
@@ -81,37 +102,39 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Error state */}
-        {error && (
-          <div className="alert alert-error" style={{ marginBottom: 24 }}>{error}</div>
-        )}
+        {error && <div className="alert alert-error" style={{ marginBottom: 24 }}>{error}</div>}
 
-        {/* Loading */}
         {loadingStats && !error && (
-          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Loading your stats...</p>
+          <p style={{ color: 'var(--text-muted)', marginBottom: 24 }}>Loading your data...</p>
         )}
 
-        {/* Stats */}
         {stats && <ProgressBlock stats={stats} />}
 
-        {/* Pain log */}
+        {/* Exercise programme */}
+        {program ? (
+          <ExerciseList
+            exercises={program.exercises}
+            weekNumber={program.week_number}
+            generatedBy={program.generated_by}
+            programNotes={program.program_notes}
+          />
+        ) : !loadingStats && (
+          <div style={{
+            background: '#fff',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            padding: '20px 24px',
+            marginBottom: 28,
+          }}>
+            <p className="section-label">Programme</p>
+            <p style={{ fontSize: 15, color: '#1a1a1a' }}>
+              Complete onboarding to generate your personalised exercise programme.
+            </p>
+          </div>
+        )}
+
         <PainLogInline />
-
-        {/* Trend chart */}
         <PainTrendChart trend={trend} />
-
-        {/* Coming soon */}
-        <div style={{
-          background: '#fff',
-          border: '1px solid var(--border)',
-          borderRadius: 12,
-          padding: '20px 24px',
-        }}>
-          <p className="section-label">Coming soon</p>
-          <p style={{ fontSize: 15, color: '#1a1a1a' }}>
-            Your exercise programme, ODI assessments, and AI coach check-ins will appear here in the next phases.
-          </p>
-        </div>
       </div>
     </div>
   )

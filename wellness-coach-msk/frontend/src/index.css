@@ -172,7 +172,7 @@ code {
 .form-label {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-dark);
+  color: black;
 }
 
 .form-input,
