@@ -58,8 +58,40 @@ const INSTRUCTIONS: Record<string, { steps: string[]; camera: string }> = {
   },
 }
 
+import { useEffect } from 'react'
+
+function speak(sentences: string[]) {
+  if (!('speechSynthesis' in window)) return
+  window.speechSynthesis.cancel()
+  sentences.forEach(text => {
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.rate = 0.88
+    utt.pitch = 1.0
+    utt.volume = 1.0
+    window.speechSynthesis.speak(utt)
+  })
+}
+
 export default function ExerciseIntroCard({ exercise, onReady }: Props) {
   const info = INSTRUCTIONS[exercise.exercise_id]
+
+  // Read instructions aloud when the card first appears (onReady present = pre-start state)
+  useEffect(() => {
+    if (!onReady) return
+    const lines: string[] = [
+      `${exercise.name}.`,
+      ...(info?.steps ?? [`Get into the starting position for ${exercise.name}.`]),
+      ...(info ? [`Camera tip. ${info.camera}.`] : []),
+      `Press I'm ready when you're in position.`,
+    ]
+    speak(lines)
+    return () => { window.speechSynthesis?.cancel() }
+  }, [exercise.exercise_id])
+
+  function handleReady() {
+    window.speechSynthesis?.cancel()
+    onReady?.()
+  }
 
   return (
     <div style={{
@@ -125,9 +157,9 @@ export default function ExerciseIntroCard({ exercise, onReady }: Props) {
         <button
           className="btn btn-primary"
           style={{ padding: '11px 28px', fontSize: 14 }}
-          onClick={onReady}
+          onClick={handleReady}
         >
-          I'm ready — start
+          I'm ready - start
         </button>
       )}
     </div>
